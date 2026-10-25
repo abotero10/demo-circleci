@@ -1,0 +1,15 @@
+﻿name: precedencia-de-ramas
+on:
+  pull_request:
+    branches: [main]
+jobs:
+  verificar-origen:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Solo se permite develop hacia main
+        run: |
+          echo "Origen: ${{ github.head_ref }} -> Destino: ${{ github.base_ref }}"
+          if [ "${{ github.head_ref }}" != "develop" ]; then
+            echo "Solo se permite develop -> main"
+            exit 1
+          fi
